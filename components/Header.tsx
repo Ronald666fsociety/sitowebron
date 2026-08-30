@@ -10,10 +10,12 @@ import {
   WHATSAPP_NUMBER,
 } from "@/lib/constants";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { cn } from "@/lib/cn";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string>("inicio");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -22,42 +24,88 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const sectionIds = NAV_ITEMS.map((item) => item.id);
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.35, 0.6] },
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const ctaHref = buildWhatsAppLink(WHATSAPP_NUMBER, DEFAULT_WHATSAPP_MESSAGE);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || menuOpen
-          ? "border-b border-accent-green/10 bg-bg-primary/85 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
-      }`}
+          ? "border-b border-accent-green/20 bg-bg-primary/75 shadow-[0_8px_32px_rgba(0,0,0,0.35),0_1px_0_rgba(0,255,136,0.12)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
+      )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a
           href="#inicio"
-          className="font-mono-tech text-lg font-medium text-text-light transition-colors hover:text-accent-green"
+          className="group flex items-center gap-2.5 font-mono-tech text-lg font-medium text-text-light transition-colors hover:text-accent-green"
           aria-label={`${BRAND.name} — inicio`}
         >
-          <span className="text-accent-green">~/</span>
-          {BRAND.shortName.toLowerCase()}
-          <span className="text-accent-green">.</span>
+          <span
+            aria-hidden="true"
+            className="status-dot inline-block h-2 w-2 rounded-full bg-accent-green shadow-[0_0_10px_rgba(0,255,136,0.8)]"
+          />
+          <span>
+            <span className="text-accent-green">~/</span>
+            {BRAND.shortName.toLowerCase()}
+            <span className="text-accent-green">.</span>
+          </span>
         </a>
 
         <nav aria-label="Navegación principal" className="hidden items-center gap-8 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              className="text-sm text-text-muted transition-colors hover:text-accent-green"
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={cn(
+                  "group/nav relative text-sm transition-colors",
+                  isActive
+                    ? "text-accent-green"
+                    : "text-text-muted hover:text-accent-green",
+                )}
+              >
+                {item.label}
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute -bottom-1 left-0 h-px w-full origin-left bg-accent-green shadow-[0_0_8px_rgba(0,255,136,0.8)] transition-transform duration-300",
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover/nav:scale-x-100",
+                  )}
+                />
+              </a>
+            );
+          })}
           <a
             href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-accent-green/40 bg-accent-green/10 px-4 py-2 text-sm font-medium text-accent-green transition-all hover:bg-accent-green hover:text-bg-primary hover:shadow-[0_0_24px_rgba(0,255,136,0.35)]"
+            className="cta-neon-pulse rounded-md border border-accent-green/50 bg-accent-green/15 px-4 py-2 text-sm font-medium text-accent-green transition-all hover:-translate-y-0.5 hover:bg-accent-green hover:text-bg-primary hover:shadow-[0_0_28px_rgba(0,255,136,0.45)]"
           >
             {HEADER.ctaLabel}
           </a>
@@ -65,7 +113,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-text-light transition-colors hover:text-accent-green md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-accent-green/15 text-text-light transition-colors hover:border-accent-green/40 hover:text-accent-green md:hidden"
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
@@ -79,14 +127,19 @@ export default function Header() {
         <nav
           id="mobile-nav"
           aria-label="Navegación móvil"
-          className="border-t border-accent-green/10 bg-bg-primary/95 px-4 pb-6 pt-2 backdrop-blur-md md:hidden"
+          className="border-t border-accent-green/15 bg-bg-primary/95 px-4 pb-6 pt-2 backdrop-blur-xl md:hidden"
         >
           <ul className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
                 <a
                   href={item.href}
-                  className="block rounded-md px-3 py-3 text-base text-text-light transition-colors hover:bg-accent-green/10 hover:text-accent-green"
+                  className={cn(
+                    "block rounded-md px-3 py-3 text-base transition-colors hover:bg-accent-green/10 hover:text-accent-green",
+                    activeId === item.id
+                      ? "bg-accent-green/10 text-accent-green"
+                      : "text-text-light",
+                  )}
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}

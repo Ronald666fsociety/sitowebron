@@ -13,8 +13,6 @@ interface TypingRotatorProps {
 
 type Phase = "typing" | "deleting";
 
-// Terminal-style typing effect: types a phrase, pauses, deletes it,
-// then moves on to the next one in an infinite loop.
 export default function TypingRotator({
   phrases,
   prefix = ">",
@@ -62,9 +60,14 @@ export default function TypingRotator({
       className="font-mono-tech text-base text-accent-green sm:text-lg"
       aria-label={`${prefix} ${phrases.join(", ")}`}
     >
-      <span className="mr-2 text-text-muted">{prefix}</span>
-      <span aria-hidden="true">{visibleText}</span>
-      <span aria-hidden="true" className="animate-cursor-blink text-accent-cyan">
+      <span className="mr-2 text-accent-cyan/80">{prefix}</span>
+      <span aria-hidden="true" className="text-text-light">
+        {visibleText}
+      </span>
+      <span
+        aria-hidden="true"
+        className="animate-cursor-blink ml-0.5 text-accent-cyan"
+      >
         ▊
       </span>
     </p>

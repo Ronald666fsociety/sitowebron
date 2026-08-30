@@ -46,8 +46,11 @@ export default function RootLayout({
       lang="es"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-bg-primary font-body text-text-light">
-        {children}
+      <body className="relative flex min-h-full flex-col bg-bg-primary font-body text-text-light">
+        <div aria-hidden="true" className="noise-overlay" />
+        <div aria-hidden="true" className="scanlines" />
+        <div aria-hidden="true" className="vignette" />
+        <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

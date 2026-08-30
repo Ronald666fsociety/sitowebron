@@ -17,7 +17,7 @@ export default function ServicesGrid() {
           id="servicios-title"
           className="mt-2 font-heading text-3xl font-bold text-text-light sm:text-4xl"
         >
-          {SERVICES_SECTION.title}
+          <span className="gradient-text">{SERVICES_SECTION.title}</span>
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-text-muted">
           {SERVICES_SECTION.description}
@@ -26,7 +26,7 @@ export default function ServicesGrid() {
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {SERVICES.map((service, index) => (
-          <Reveal key={service.id} delay={0.12 * index} className="h-full">
+          <Reveal key={service.id} delay={0.14 * index} className="h-full" y={36}>
             <ServiceCard service={service} />
           </Reveal>
         ))}
