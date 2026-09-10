@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Terminal } from "lucide-react";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -7,7 +10,10 @@ import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import ServicesGrid from "@/components/ServicesGrid";
+import SystemsPortfolio from "@/components/SystemsPortfolio";
+import SystemQuoteChatbot from "@/components/SystemQuoteChatbot";
 import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
+import { SystemItem } from "@/lib/constants";
 
 function SectionDivider() {
   return (
@@ -21,6 +27,14 @@ function SectionDivider() {
 }
 
 export default function Home() {
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [presetSystem, setPresetSystem] = useState<SystemItem | null>(null);
+
+  const handleOpenQuoteWithSystem = (system: SystemItem) => {
+    setPresetSystem(system);
+    setIsChatbotOpen(true);
+  };
+
   return (
     <>
       <ParticlesBackground />
@@ -32,12 +46,19 @@ export default function Home() {
         <SectionDivider />
         <ServicesGrid />
         <SectionDivider />
+        <SystemsPortfolio onOpenQuoteWithSystem={handleOpenQuoteWithSystem} />
+        <SectionDivider />
         <HowItWorks />
         <SectionDivider />
         <ContactSection />
       </main>
       <Footer />
       <WhatsAppFloatingButton />
+      <SystemQuoteChatbot
+        isOpenExternal={isChatbotOpen}
+        onCloseExternal={() => setIsChatbotOpen(false)}
+        presetSystem={presetSystem}
+      />
     </>
   );
 }

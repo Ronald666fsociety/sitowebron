@@ -10,33 +10,57 @@ export default function AboutSection() {
     >
       <div className="grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16">
         <Reveal className="mx-auto">
-          <div className="relative">
+          <div className="relative group">
             <div
               aria-hidden="true"
-              className="absolute -inset-6 animate-float-slow rounded-full bg-accent-green/20 blur-2xl"
+              className="absolute -inset-6 animate-pulse rounded-2xl bg-accent-green/20 blur-2xl"
             />
             <div
               aria-hidden="true"
-              className="absolute -right-3 -top-3 h-16 w-16 rounded-full bg-accent-cyan/20 blur-xl"
+              className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-accent-cyan/25 blur-xl"
             />
             <div
               aria-hidden="true"
-              className="absolute -bottom-2 -left-4 h-12 w-12 rounded-full bg-accent-green/25 blur-lg"
+              className="absolute -bottom-4 -left-4 h-20 w-20 rounded-full bg-accent-green/30 blur-xl"
             />
 
-            <div className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute -inset-1 rounded-full bg-gradient-to-br from-accent-green via-accent-cyan/50 to-accent-green opacity-70 blur-[2px]"
-              />
-              <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-2 border-accent-green/70 bg-bg-secondary font-heading text-5xl font-bold text-accent-green shadow-[0_0_48px_rgba(0,255,136,0.3)] sm:h-44 sm:w-44 sm:text-6xl">
-                {ABOUT.avatarInitial}
-                <span className="sr-only">Avatar de Ronnie</span>
+            <div className="relative overflow-hidden rounded-2xl border-2 border-accent-green/60 bg-bg-secondary/90 p-2.5 shadow-[0_0_50px_rgba(0,255,136,0.35)] backdrop-blur-md transition-transform duration-300 group-hover:scale-[1.02]">
+              {/* Corner Tech Decorators */}
+              <div className="absolute left-1.5 top-1.5 h-3 w-3 border-l-2 border-t-2 border-accent-green" />
+              <div className="absolute right-1.5 top-1.5 h-3 w-3 border-r-2 border-t-2 border-accent-green" />
+              <div className="absolute bottom-1.5 left-1.5 h-3 w-3 border-b-2 border-l-2 border-accent-green" />
+              <div className="absolute bottom-1.5 right-1.5 h-3 w-3 border-b-2 border-r-2 border-accent-green" />
+
+              <div className="relative h-64 w-64 overflow-hidden rounded-xl bg-black/50 sm:h-72 sm:w-72">
+                <img
+                  src={ABOUT.avatarImage}
+                  alt="Ronnie — Hacker & Developer"
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+                
+                {/* Cyber overlay gradient */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg-primary via-transparent to-transparent opacity-80" />
+                
+                {/* Scanner effect line */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-accent-green/80 shadow-[0_0_15px_#00ff88] opacity-75 animate-pulse" />
               </div>
-              <span
-                aria-hidden="true"
-                className="status-dot absolute bottom-2 right-2 h-4 w-4 rounded-full border-2 border-bg-primary bg-accent-green shadow-[0_0_12px_rgba(0,255,136,0.9)]"
-              />
+
+              {/* Status Header Badge */}
+              <div className="mt-2.5 flex items-center justify-between px-1">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-green opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent-green" />
+                  </span>
+                  <span className="font-mono-tech text-[11px] font-semibold tracking-wider text-accent-green uppercase">
+                    SYS_ID: RONNIE
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 rounded border border-accent-cyan/40 bg-accent-cyan/10 px-2 py-0.5 font-mono-tech text-[10px] text-accent-cyan">
+                  <img src={ABOUT.logoImage} alt="R Logo" className="h-3 w-3 rounded-full" />
+                  <span>ONLINE</span>
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>

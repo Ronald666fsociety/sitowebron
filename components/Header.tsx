@@ -62,14 +62,21 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a
           href="#inicio"
-          className="group flex items-center gap-2.5 font-mono-tech text-lg font-medium text-text-light transition-colors hover:text-accent-green"
+          className="group flex items-center gap-3 font-mono-tech text-lg font-medium text-text-light transition-colors hover:text-accent-green"
           aria-label={`${BRAND.name} — inicio`}
         >
-          <span
-            aria-hidden="true"
-            className="status-dot inline-block h-2 w-2 rounded-full bg-accent-green shadow-[0_0_10px_rgba(0,255,136,0.8)]"
-          />
-          <span>
+          <div className="relative flex h-8 w-8 items-center justify-center rounded-full border border-accent-green/60 bg-bg-secondary p-0.5 shadow-[0_0_15px_rgba(0,255,136,0.4)] transition-transform group-hover:scale-105">
+            <img
+              src={BRAND.logoPath}
+              alt="Ronnie Logo"
+              className="h-full w-full rounded-full object-cover"
+            />
+            <span
+              aria-hidden="true"
+              className="status-dot absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border border-bg-primary bg-accent-green shadow-[0_0_8px_rgba(0,255,136,0.9)]"
+            />
+          </div>
+          <span className="font-heading font-bold tracking-wider">
             <span className="text-accent-green">~/</span>
             {BRAND.shortName.toLowerCase()}
             <span className="text-accent-green">.</span>

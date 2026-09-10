@@ -70,7 +70,10 @@ export default function ContactSection() {
         </Reveal>
 
         <Reveal delay={0.28}>
-          <ul className="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-text-muted sm:flex-row sm:gap-8">
+          <ul className="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-text-muted sm:flex-row sm:gap-6">
+            <li className="inline-flex items-center gap-2 rounded-full border border-accent-green/30 bg-accent-green/10 px-4 py-2 font-mono-tech text-xs text-accent-green">
+              <span>📱 WhatsApp Directo: +591 73555747</span>
+            </li>
             <li className="inline-flex items-center gap-2 rounded-full border border-accent-green/15 bg-bg-primary/50 px-4 py-2">
               <MapPin
                 className="h-4 w-4 shrink-0 text-accent-green"
