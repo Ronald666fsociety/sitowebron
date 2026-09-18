@@ -53,6 +53,54 @@ export default function SystemsPortfolio({ onOpenQuoteWithSystem }: SystemsPortf
           </p>
         </Reveal>
 
+        {/* Featured Live System Banner */}
+        <Reveal delay={0.12}>
+          <div className="mt-10 overflow-hidden rounded-2xl border border-accent-cyan/40 bg-gradient-to-r from-sky-950/40 via-bg-secondary to-accent-green/10 p-6 sm:p-8 backdrop-blur-md shadow-[0_0_40px_rgba(0,229,255,0.15)] text-left relative">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-2xl">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-cyan/40 bg-accent-cyan/15 px-3 py-1 font-mono-tech text-xs text-accent-cyan animate-pulse">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    DEMO EN VIVO DISPONIBLE
+                  </span>
+                  <span className="font-mono-tech text-xs text-accent-green">
+                    Three.js + React 19 + Next.js
+                  </span>
+                </div>
+                <h3 className="font-heading text-2xl sm:text-3xl font-bold text-text-light">
+                  DentalCare Pro — Clínica Dental 3D
+                </h3>
+                <p className="text-sm sm:text-base text-text-muted leading-relaxed">
+                  Sistema web odontológico completo con visualizador 3D interactivo en WebGL, catálogo de especialidades con tarifas en Bolivianos, reservas y chatbot de atención online.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
+                <a
+                  href="https://dentista-ruddy.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-accent-cyan px-6 py-3.5 font-heading text-sm font-bold text-bg-primary shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all hover:scale-105 hover:bg-white"
+                >
+                  <span>Probar Sistema en Vivo</span>
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+
+                <button
+                  onClick={() => {
+                    const dental = PORTFOLIO_SYSTEMS.find((s) => s.id === "dentalcare-pro");
+                    if (dental) setInspectedSystem(dental);
+                  }}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-bg-secondary/80 px-5 py-3.5 font-heading text-sm font-semibold text-text-light hover:border-accent-cyan/60 hover:text-accent-cyan transition-all"
+                >
+                  <span>Ver Ficha Técnica</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
         {/* Category Filters */}
         <Reveal delay={0.15}>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
@@ -123,13 +171,28 @@ export default function SystemsPortfolio({ onOpenQuoteWithSystem }: SystemsPortf
 
               {/* Actions Buttons */}
               <div className="mt-6 flex items-center justify-between gap-2">
-                <button
-                  onClick={() => setInspectedSystem(system)}
-                  className="inline-flex items-center gap-1.5 font-mono-tech text-xs font-semibold text-accent-green transition-colors hover:text-white"
-                >
-                  <span>Ver detalles</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </button>
+                <div className="flex items-center gap-2.5">
+                  <button
+                    onClick={() => setInspectedSystem(system)}
+                    className="inline-flex items-center gap-1 font-mono-tech text-xs font-semibold text-accent-green transition-colors hover:text-white"
+                  >
+                    <span>Detalles</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </button>
+
+                  {system.demoUrl && (
+                    <a
+                      href={system.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-mono-tech text-xs font-semibold text-accent-cyan hover:text-white transition-colors underline decoration-accent-cyan/40 underline-offset-4"
+                      title="Probar demo en vivo"
+                    >
+                      <span>Ver Demo</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </div>
 
                 <button
                   onClick={() => {

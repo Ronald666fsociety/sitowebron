@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, MessageSquare, Terminal, Cpu, ShieldCheck, Zap } from "lucide-react";
+import { X, CheckCircle2, MessageSquare, Terminal, Cpu, ShieldCheck, Zap, ExternalLink } from "lucide-react";
 import { SystemItem, WHATSAPP_NUMBER } from "@/lib/constants";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
@@ -150,6 +150,18 @@ export default function SystemDetailModal({
 
             {/* Actions Bar */}
             <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-accent-green/20">
+              {system.demoUrl && (
+                <a
+                  href={system.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-accent-cyan bg-accent-cyan/20 px-5 py-3 font-heading font-semibold text-accent-cyan hover:bg-accent-cyan hover:text-bg-primary transition-all shadow-[0_0_20px_rgba(0,229,255,0.25)]"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Ver Sistema en Vivo
+                </a>
+              )}
+
               <button
                 onClick={() => {
                   onClose();

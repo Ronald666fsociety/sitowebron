@@ -116,6 +116,27 @@ export interface SystemItem {
 
 export const PORTFOLIO_SYSTEMS: SystemItem[] = [
   {
+    id: "dentalcare-pro",
+    title: "DENTALCARE PRO — Clínica Dental 3D & Citas",
+    category: "Sistema Web",
+    shortDescription:
+      "Sistema odontológico integral con explorador interactivo 3D del diente en WebGL, chatbot de atención, citas y precios en Bolivianos.",
+    fullDescription:
+      "Plataforma completa para consultorios dentales y clínicas odontológicas. Incorpora un visualizador 3D interactivo en tiempo real con Three.js y React Three Fiber, catálogo de especialidades con tarifas en Bs., carrusel de casos clínicos, chatbot de asistencia y reservas directas a WhatsApp.",
+    features: [
+      "Explorador interactivo 3D de anatomía dental con Three.js / WebGL",
+      "Chatbot interactivo para consultas frecuentes y agendamiento",
+      "Catálogo de especialidades con tarifas transparentes en Bolivianos (Bs.)",
+      "Diseño responsive ultra rápido y optimizado desplegado en Vercel",
+    ],
+    techStack: ["Next.js", "React 19", "Three.js", "Fiber", "TailwindCSS", "Vercel"],
+    metrics: "⚡ Demo en Vivo Online",
+    demoUrl: "https://dentista-ruddy.vercel.app/",
+    imageBg: "from-sky-950/60 via-bg-secondary to-accent-cyan/20",
+    whatsappMessage:
+      "Hola Ronnie, vi el sistema en vivo de DENTALCARE PRO (https://dentista-ruddy.vercel.app/). Me gustaría cotizar un sistema similar para mi negocio.",
+  },
+  {
     id: "si-gestion",
     title: "SI-GESTION — Facturación & Inventarios",
     category: "Facturación",
